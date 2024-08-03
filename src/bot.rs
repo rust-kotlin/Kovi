@@ -289,7 +289,7 @@ impl Bot {
                         let msg = msg.clone();
                         let bot = bot.clone();
 
-                        if let None = msg_json.get("message_type") {
+                        if msg_json.get("message_type").is_none() {
                             continue;
                         };
 
@@ -391,18 +391,13 @@ impl Bot {
                 ws.send(msg).unwrap();
                 let receive = ws.receive();
                 match receive {
-                    Ok(msg_result) => match msg_result {
-                        Some(msg) => {
-                            if !msg.opcode().is_text() {
-                                return;
-                            }
-                            let text = msg.as_text().unwrap();
-                            if debug {
-                                println!("{}", text);
-                            }
-                        }
-                        None => {
+                    Ok(msg_result) => if let Some(msg) = msg_result {
+                        if !msg.opcode().is_text() {
                             return;
+                        }
+                        let text = msg.as_text().unwrap();
+                        if debug {
+                            println!("{}", text);
                         }
                     },
                     Err(e) => exit_and_eprintln(e),

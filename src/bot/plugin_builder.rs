@@ -84,7 +84,7 @@ impl PluginBuilder {
     where
         F: Fn(&OnMsgEvent) -> Result<(), ()> + Send + Sync + 'static,
     {
-        if self.name == None {
+        if self.name.is_none() {
             return Err(());
         }
         let bot = self.bot.clone();
@@ -106,7 +106,7 @@ impl PluginBuilder {
             });
             return Ok(());
         }
-        return Ok(());
+        Ok(())
     }
 
     /// 注册消息处理函数。
@@ -118,7 +118,7 @@ impl PluginBuilder {
     where
         F: Fn(&OnMsgEvent) -> Result<(), ()> + Send + Sync + 'static,
     {
-        if self.name == None {
+        if self.name.is_none() {
             return Err(());
         }
         let bot = self.bot.clone();
@@ -140,7 +140,7 @@ impl PluginBuilder {
             });
             return Ok(());
         }
-        return Ok(());
+        Ok(())
     }
 
     /// 注册消息处理函数。
@@ -152,7 +152,7 @@ impl PluginBuilder {
     where
         F: Fn(&OnAllNoticeEvent) -> Result<(), ()> + Send + Sync + 'static,
     {
-        if self.name == None {
+        if self.name.is_none() {
             return Err(());
         }
         let bot = self.bot.clone();
@@ -174,6 +174,6 @@ impl PluginBuilder {
             });
             return Ok(());
         }
-        return Ok(());
+        Ok(())
     }
 }
